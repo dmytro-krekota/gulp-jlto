@@ -1,6 +1,6 @@
 {
     "name": "gulp-jlto",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "description": "Gulp tool for optimizing Jinja like templates",
     "keywords": [
         "jinja",
