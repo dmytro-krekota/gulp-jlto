@@ -2,9 +2,9 @@ let stream = require('stream')
 let jlto = require('jlto')
 
 module.exports = function(options) {
-    let stream = new stream.Transform({objectMode: true})
+    let transform = new stream.Transform({objectMode: true})
 
-    stream._transform = function(file, encoding, callback) {
+    transform._transform = function(file, encoding, callback) {
         if (file.isNull()) {
             return callback(null, file)
         }
@@ -19,5 +19,5 @@ module.exports = function(options) {
         callback(null, file)
     }
 
-    return stream
+    return transform
 }
