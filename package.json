@@ -1,41 +1,41 @@
 {
-    "name": "gulp-jlto",
-    "version": "1.0.4",
-    "description": "Gulp tool for optimizing Jinja like templates",
-    "keywords": [
-        "jinja",
-        "optimizer",
-        "liquid",
-        "min",
-        "jinjava",
-        "minify",
-        "nunjucks",
-        "minifier",
-        "twig",
-        "compressor",
-        "django",
-        "gulp"
-    ],
-    "homepage": "https://github.com/DmitryKrekota/gulp-jlto",
-    "bugs": {
-        "url": "https://github.com/DmitryKrekota/gulp-jlto/issues",
-        "email": "dmitry.krekota@gmail.com"
-    },
-    "author": {
-        "name": "Dmitry Krekota",
-        "email": "dmitry.krekota@gmail.com",
-        "url": "https://github.com/DmitryKrekota"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git://github.com/DmitryKrekota/gulp-jlto.git"
-    },
-    "main": "index.js",
-    "engines": {
-        "node": ">=6"
-    },
-    "license": "MIT",
-    "dependencies": {
-        "jlto": "1.1.10"
-    }
+  "name": "gulp-jlto",
+  "version": "1.0.5",
+  "description": "Gulp tool for optimizing Jinja like templates",
+  "keywords": [
+    "jinja",
+    "optimizer",
+    "liquid",
+    "min",
+    "jinjava",
+    "minify",
+    "nunjucks",
+    "minifier",
+    "twig",
+    "compressor",
+    "django",
+    "gulp"
+  ],
+  "homepage": "https://github.com/dmytro-krekota/gulp-jlto",
+  "bugs": {
+    "url": "https://github.com/dmytro-krekota/gulp-jlto/issues",
+    "email": "dmytro.krekota@gmail.com"
+  },
+  "author": {
+    "name": "Dmytro Krekota",
+    "email": "dmytro.krekota@gmail.com",
+    "url": "https://github.com/dmytro-krekota"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dmytro-krekota/gulp-jlto.git"
+  },
+  "main": "index.js",
+  "engines": {
+    "node": ">=10"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "jlto": "1.1.12"
+  }
 }
