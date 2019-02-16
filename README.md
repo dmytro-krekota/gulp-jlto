@@ -19,13 +19,13 @@ let gulp = require('gulp');
 let jlto = require('gulp-jlto');
 
 gulp.task('jlto', () => {
-    return gulp
-        .src(['src/**/*.nunjucks'])
-        .pipe(
-            jlto({
-                minifyHtml: true
-            })
-        )
-        .pipe(gulp.dest('build'));
+  return gulp
+    .src(['src/**/*.nunjucks'])
+    .pipe(
+      jlto({
+        minifyHtml: true
+      })
+    )
+    .pipe(gulp.dest('build'));
 });
 ```
