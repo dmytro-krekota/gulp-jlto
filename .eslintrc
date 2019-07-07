@@ -8,8 +8,7 @@
   },
   "rules": {
     "semi": [
-      1,
-      "never"
+      1
     ],
     "no-mixed-spaces-and-tabs": [
       1
@@ -41,7 +40,7 @@
     "space-in-parens": 1,
     "indent": [
       1,
-      4
+      2
     ],
     "camelcase": [
       1,
@@ -80,6 +79,7 @@
     "linebreak-style": [
       1,
       "unix"
-    ]
+    ],
+    "no-empty": 0
   }
 }
