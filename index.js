@@ -3,7 +3,7 @@ let jlto = require('jlto');
 
 module.exports = (options) => {
   let transform = new stream.Transform({
-    objectMode: true
+    objectMode: true,
   });
 
   transform._transform = (file, encoding, callback) => {
