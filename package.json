@@ -1,6 +1,6 @@
 {
   "name": "gulp-jlto",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "Gulp tool for optimizing Jinja like templates",
   "keywords": [
     "jinja",
@@ -36,6 +36,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "jlto": "^1.4.0"
+    "jlto": "^1.4.2"
   }
 }
