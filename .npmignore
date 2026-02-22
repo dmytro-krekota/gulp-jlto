@@ -11,6 +11,6 @@
 /coverage/
 
 .editorconfig
-.eslintrc
+eslint.config.js
 .npmignore
 .prettierrc

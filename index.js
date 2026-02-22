@@ -12,12 +12,13 @@ module.exports = (options) => {
     }
     let source = String(file.contents);
 
-    try {
-      let result = jlto.optimizeString(source, options);
-
-      file.contents = new Buffer(result);
-    } catch (ignored) {}
-    callback(null, file);
+    Promise.resolve()
+      .then(() => jlto.optimizeString(source, options))
+      .then((result) => {
+        file.contents = Buffer.from(result);
+      })
+      .catch(() => {})
+      .finally(() => callback(null, file));
   };
 
   return transform;
