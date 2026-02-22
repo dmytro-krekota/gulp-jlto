@@ -31,9 +31,6 @@
     "url": "git://github.com/dmytro-krekota/gulp-jlto.git"
   },
   "main": "index.js",
-  "engines": {
-    "node": ">=12"
-  },
   "scripts": {
     "lint": "eslint .",
     "test": "node test/main.test.js && node test/gulp-task.test.js"
