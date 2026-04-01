@@ -57,21 +57,34 @@ let runTest = async (name, fn) => {
   }
 };
 
+let buildPaths = (tempRoot) => {
+  let sourceDir = path.join(tempRoot, 'src');
+  let outputDir = path.join(tempRoot, 'dist');
+  let sourceFilePath = path.join(sourceDir, 'template.html');
+  let outputFilePath = path.join(outputDir, 'template.html');
+
+  return {
+    sourceDir,
+    outputDir,
+    sourceFilePath,
+    outputFilePath,
+  };
+};
+
 let testOptimizedOutput = async () => {
   await withTempDirectory('gulp-jlto-', async (tempRoot) => {
-    let sourceDir = path.join(tempRoot, 'src');
-    let outputDir = path.join(tempRoot, 'dist');
-    let sourceFilePath = path.join(sourceDir, 'template.html');
-    let outputFilePath = path.join(outputDir, 'template.html');
+    let sourceString = '{% if user %}\n  <div> Hello </div>\n{% endif %}';
+    let expectedString = '{% if user %}<div>Hello</div>{% endif %}';
+    let {sourceDir, outputDir, sourceFilePath, outputFilePath} = buildPaths(tempRoot);
 
     await fsp.mkdir(sourceDir, {recursive: true});
-    await fsp.writeFile(sourceFilePath, 'SOURCE', 'utf8');
+    await fsp.writeFile(sourceFilePath, sourceString, 'utf8');
 
     jlto.optimizeString = async (source, options) => {
-      assert.strictEqual(source, 'SOURCE');
+      assert.strictEqual(source, sourceString);
       assert.deepStrictEqual(options, {strip: true});
 
-      return 'OPTIMIZED';
+      return expectedString;
     };
 
     let optimizeTask = () => {
@@ -87,21 +100,23 @@ let testOptimizedOutput = async () => {
 
     let output = await fsp.readFile(outputFilePath, 'utf8');
 
-    assert.strictEqual(output, 'OPTIMIZED');
+    assert.strictEqual(output, expectedString);
   });
 };
 
 let testFallbackOnOptimizeFailure = async () => {
   await withTempDirectory('gulp-jlto-', async (tempRoot) => {
-    let sourceDir = path.join(tempRoot, 'src');
-    let outputDir = path.join(tempRoot, 'dist');
-    let sourceFilePath = path.join(sourceDir, 'template.html');
-    let outputFilePath = path.join(outputDir, 'template.html');
+    let sourceString = '{% if user %}\n  <div> Hello </div>\n{% endif %}';
+    let called = false;
+    let {sourceDir, outputDir, sourceFilePath, outputFilePath} = buildPaths(tempRoot);
 
     await fsp.mkdir(sourceDir, {recursive: true});
-    await fsp.writeFile(sourceFilePath, 'SOURCE', 'utf8');
+    await fsp.writeFile(sourceFilePath, sourceString, 'utf8');
 
-    jlto.optimizeString = async () => {
+    jlto.optimizeString = async (source, options) => {
+      called = true;
+      assert.strictEqual(source, sourceString);
+      assert.strictEqual(options, undefined);
       throw new Error('optimizer failed');
     };
 
@@ -118,7 +133,8 @@ let testFallbackOnOptimizeFailure = async () => {
 
     let output = await fsp.readFile(outputFilePath, 'utf8');
 
-    assert.strictEqual(output, 'SOURCE');
+    assert.strictEqual(called, true);
+    assert.strictEqual(output, sourceString);
   });
 };
 

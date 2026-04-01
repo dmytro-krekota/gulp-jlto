@@ -17,6 +17,13 @@ let runPlugin = (file, options) => {
   });
 };
 
+let createFile = (contents) => {
+  return {
+    isNull: () => false,
+    contents: Buffer.from(contents),
+  };
+};
+
 let testCases = [
   {
     name: 'passes null files through unchanged',
@@ -43,35 +50,38 @@ let testCases = [
   {
     name: 'optimizes non-null files when optimizer resolves',
     run: async () => {
+      let sourceString = '{% if user %}\n  <div> Hello </div>\n{% endif %}';
+      let expectedString = '{% if user %}<div>Hello</div>{% endif %}';
+
       jlto.optimizeString = async (source, options) => {
-        assert.strictEqual(source, 'source');
+        assert.strictEqual(source, sourceString);
         assert.deepStrictEqual(options, {keepComments: false});
 
-        return 'optimized';
+        return expectedString;
       };
 
-      let file = {
-        isNull: () => false,
-        contents: Buffer.from('source'),
-      };
+      let file = createFile(sourceString);
       let result = await runPlugin(file, {keepComments: false});
 
-      assert.strictEqual(result.contents.toString(), 'optimized');
+      assert.strictEqual(result, file);
+      assert.strictEqual(result.contents.toString(), expectedString);
     },
   },
   {
     name: 'keeps original contents when optimizer throws',
     run: async () => {
+      let called = false;
+
       jlto.optimizeString = async () => {
+        called = true;
         throw new Error('boom');
       };
 
-      let file = {
-        isNull: () => false,
-        contents: Buffer.from('source'),
-      };
+      let file = createFile('source');
       let result = await runPlugin(file);
 
+      assert.strictEqual(result, file);
+      assert.strictEqual(called, true);
       assert.strictEqual(result.contents.toString(), 'source');
     },
   },
